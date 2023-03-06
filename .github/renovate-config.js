@@ -10,4 +10,16 @@ module.exports = {
     'MDietz135/renovate-repro-20672'
   ],
   skipInstalls: false,
+  baseBranches: ["main"],
+  packageRules: [
+    {
+      updateTypes: ["minor", "patch", "pin", "digest"],
+      automerge: false,
+    }
+  ],
+  postUpgradeTasks: {
+    commands: ["echo '{{ upgrades }}'", "echo '{{ upgrades }}' > upgrades.json"],
+    fileFilters: ["upgrades.json"],
+    executionMode: "update"
+  }
 };
