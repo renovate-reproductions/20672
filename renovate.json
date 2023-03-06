@@ -1,6 +1,6 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "baseBranches": ["master"],
+    "baseBranches": ["main"],
     "extends": [
       "config:base",
       ":semanticCommits",
@@ -9,32 +9,10 @@
     ],
     "updateNotScheduled": false,
     "timezone": "Europe/Berlin",
-    "kubernetes": {
-      "fileMatch": [".\\.gitlab-ci\\.yml$"]
-    },
-    "gitlabci-include": {
-      "fileMatch": [".\\.gitlab-ci\\.yml$", "^.gitlab-ci/.*\\.yml$", "^.gitlab-ci/jobs/.*\\.yml$"]
-    },
     "packageRules": [
       {
         "extends": ["monorepo:material-ui", "monorepo:emotion"],
         "groupName": "material-ui and emotion"
-      },
-      {
-        "description": "Trigger breaking release for major updates",
-        "matchUpdateTypes": ["major"],
-        "semanticCommitType": "feat",
-        "commitBody": "BREAKING CHANGE: Major update"
-      },
-      {
-        "description": "Trigger feature release for minor updates",
-        "matchUpdateTypes": ["minor"],
-        "semanticCommitType": "feat"
-      },
-      {
-        "description": "Trigger fix release for patch updates",
-        "matchUpdateTypes": ["patch", "digest"],
-        "semanticCommitType": "fix"
       },
       {
         "updateTypes": ["minor", "patch", "pin", "digest"],
