@@ -1,12 +1,6 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "baseBranches": ["main"],
-    "extends": [
-      "config:base",
-      ":semanticCommits",
-      "docker:enableMajor",
-      ":disableDependencyDashboard"
-    ],
     "updateNotScheduled": false,
     "timezone": "Europe/Berlin",
     "packageRules": [
@@ -18,16 +12,9 @@
       }
     ],
     "postUpgradeTasks": {
-      "commands": ["echo {{upgrades}}"],
-      "fileFilters": [""],
+      "commands": ["echo '{{ upgrades }}'", "echo '{{ upgrades }}' > upgrades.json"],
+      "fileFilters": ["upgrades.json"],
       "executionMode": "update"
-    },
-    "prHourlyLimit": 10,
-    "prConcurrentLimit": 5,
-    "dependencyDashboard": false,
-    "gitLabIgnoreApprovals": false,
-    "platformAutomerge": false,
-    "automergeType": "pr",
-    "rebaseWhen": "behind-base-branch"
+    }
   }
   
