@@ -1,7 +1,6 @@
 {
-    "name": "renovate-repro-20672",
-    "dependencies": {
-        "@mui/material": "^5.0.0",
-        "github-app-installation-token": "^1.2.0"
-    }
+  "name": "renovate-repro-20672",
+  "dependencies": {
+    "@mui/material": "5.0.0"
+  }
 }
