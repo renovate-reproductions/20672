@@ -11,35 +11,10 @@
     "timezone": "Europe/Berlin",
     "packageRules": [
       {
-        "extends": ["monorepo:material-ui", "monorepo:emotion"],
-        "groupName": "material-ui and emotion"
-      },
-      {
         "updateTypes": ["minor", "patch", "pin", "digest"],
         "automerge": false,
         "gitLabAutomerge": false,
         "gitLabIgnoreApprovals": false
-      },
-      {
-        "description": "add skip release for semantic-release updates",
-        "matchPackagePatterns": [".*images/semantic-release/semantic-release.*"],
-        "matchPackageNames": [
-          "registry.gitlab.com/empiriecom/core/images/semantic-release/semantic-release"
-        ],
-        "commitBody": "[skip release]"
-      },
-      {
-        "matchPackagePatterns": ["*"],
-        "rangeStrategy": "bump"
-      }
-    ],
-    "regexManagers": [
-      {
-        "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
-        "matchStrings": [
-          "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
-        ],
-        "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
       }
     ],
     "postUpgradeTasks": {
