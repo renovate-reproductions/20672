@@ -1,15 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "baseBranches": ["main"],
-  "packageRules": [
-    {
-      "updateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": false
-    }
-  ],
-  "postUpgradeTasks": {
-    "commands": ["echo '{{ upgrades }}'", "echo '{{ upgrades }}' > upgrades.json"],
-    "fileFilters": ["upgrades.json"],
-    "executionMode": "update"
-  }
+  "baseBranches": ["main"]
 }
