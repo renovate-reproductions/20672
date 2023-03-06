@@ -1,0 +1,80 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "baseBranches": ["master"],
+    "extends": [
+      "config:base",
+      ":semanticCommits",
+      "docker:enableMajor",
+      ":disableDependencyDashboard"
+    ],
+    "updateNotScheduled": false,
+    "timezone": "Europe/Berlin",
+    "kubernetes": {
+      "fileMatch": [".\\.gitlab-ci\\.yml$"]
+    },
+    "gitlabci-include": {
+      "fileMatch": [".\\.gitlab-ci\\.yml$", "^.gitlab-ci/.*\\.yml$", "^.gitlab-ci/jobs/.*\\.yml$"]
+    },
+    "packageRules": [
+      {
+        "extends": ["monorepo:material-ui", "monorepo:emotion"],
+        "groupName": "material-ui and emotion"
+      },
+      {
+        "description": "Trigger breaking release for major updates",
+        "matchUpdateTypes": ["major"],
+        "semanticCommitType": "feat",
+        "commitBody": "BREAKING CHANGE: Major update"
+      },
+      {
+        "description": "Trigger feature release for minor updates",
+        "matchUpdateTypes": ["minor"],
+        "semanticCommitType": "feat"
+      },
+      {
+        "description": "Trigger fix release for patch updates",
+        "matchUpdateTypes": ["patch", "digest"],
+        "semanticCommitType": "fix"
+      },
+      {
+        "updateTypes": ["minor", "patch", "pin", "digest"],
+        "automerge": false,
+        "gitLabAutomerge": false,
+        "gitLabIgnoreApprovals": false
+      },
+      {
+        "description": "add skip release for semantic-release updates",
+        "matchPackagePatterns": [".*images/semantic-release/semantic-release.*"],
+        "matchPackageNames": [
+          "registry.gitlab.com/empiriecom/core/images/semantic-release/semantic-release"
+        ],
+        "commitBody": "[skip release]"
+      },
+      {
+        "matchPackagePatterns": ["*"],
+        "rangeStrategy": "bump"
+      }
+    ],
+    "regexManagers": [
+      {
+        "fileMatch": ["(^|/|\\.)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
+        "matchStrings": [
+          "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
+        ],
+        "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
+      }
+    ],
+    "postUpgradeTasks": {
+      "commands": ["echo {{upgrades}}"],
+      "fileFilters": [""],
+      "executionMode": "update"
+    },
+    "prHourlyLimit": 10,
+    "prConcurrentLimit": 5,
+    "dependencyDashboard": false,
+    "gitLabIgnoreApprovals": false,
+    "platformAutomerge": false,
+    "automergeType": "pr",
+    "rebaseWhen": "behind-base-branch"
+  }
+  
