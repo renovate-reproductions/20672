@@ -1,7 +1,7 @@
 {
   "name": "renovate-repro-20672",
   "dependencies": {
-    "@mui/material": "5.11.4",
+    "@mui/material": "5.11.12",
     "@mui/system": "5.11.4"
   }
 }
